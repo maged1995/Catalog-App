@@ -1,0 +1,17 @@
+
+<div class="navbar navbar-expand-lg navbar-dark bg-dark navig">
+	<div class="col-md-1"></div>
+	<div class="navbar-nav justify-content-left col-md-3">
+		<li class="nav-item active">
+			<a class="nav-link title" href="/"><strong>Catalog App</strong></a>
+		</li>
+	</div>
+	<div class="col-md-7 text-right">
+
+		<a href="{{url_for('showLogin')}}"><button class="btn btn-success">
+			{%if 'username' not in session %}Login{% else %}Logout{% endif %}
+		</button></a>
+
+	</div>
+	<div class="col-md-1"></div>
+</div>

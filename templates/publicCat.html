@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% include "header.html" %}
+{% block content %}
+<div class="col-md-2 categories">
+	<h2>Categories</h2>
+	<ul>
+	{%for Category in Categories%}
+		<li>
+			<a href="/catalog/{{Category.name}}/items">{{Category.name}}</a>
+		</li>
+	{%endfor%}
+	</ul>
+</div>
+<div class="col-md-6 latest-items">
+	{%if 'username' in session%}
+	<a href="{{url_for('addItem')}}">Add Item</a>
+	{%endif%}
+	<h2>Latest Items</h2>
+	<ul>
+		{%for Item in Items%}
+			<li>
+				<a href="{{Item.title}}">{{Item.title}}</a>
+			</li>
+		{%endfor%}
+	</ul>
+</div>
+{% endblock %}

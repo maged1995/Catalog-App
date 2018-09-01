@@ -1,0 +1,37 @@
+.title{
+  font-size: 30px;
+}
+.navig{
+  margin:  0px;
+  padding: 0px;
+}
+body{
+  background-color: #DDDDDD;
+}
+.main{
+  display: flex;
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+.categories{
+  margin: 20px;
+  float: left;
+  margin-right: 30px;
+}
+a{
+  color: #E34D07;
+}
+ul{
+  padding-left: 0px;
+  list-style-type: none;
+}
+.btn{
+  background-color: #E34D07;
+}
+.latest-items{
+  margin: 20px;
+  border-left: 2px solid #DDDDDD;
+  padding-left: 40px;
+  float: left;
+}

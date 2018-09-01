@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% include "header.html" %}
+{% block content %}
+<div>
+  <h2>Edit Item</h2><br/>
+  <form method="post" action="edit?{{Item[0].title}}">
+    <label>Title:<br /><input type="text" name="title" value="{{Item[0].title}}" /> </label> <br />
+    <label>description:<br /><input type="text" name="description" value="{{Item[0].description}}"/> </label><br />
+    <label>Category:<br />
+    <select name="Category">
+      {% for Category in Categories%}
+      <option value="{{Category.cat_id}}" {% if Item[0].Category == Category.cat_id%} selected {%endif%}>{{Category.name}}</option>
+      {% endfor %}
+    </select>
+   </label>
+   <br />
+   <input type="submit" />
+  </form>
+</div>
+
+{% endblock %}
