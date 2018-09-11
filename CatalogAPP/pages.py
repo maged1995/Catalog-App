@@ -17,10 +17,11 @@ from flask import make_response
 import requests
 from sqlalchemy.pool import StaticPool
 from collections import OrderedDict
+import os
 
 auth = HTTPBasicAuth()
 
-engine = create_engine('sqlite:///db/Items.db',
+engine = create_engine('sqlite:///' + os.path.join(basedir, 'db/Items.db'),
                        connect_args={'check_same_thread': False},
                        poolclass=StaticPool)
 
