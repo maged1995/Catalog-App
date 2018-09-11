@@ -1,4 +1,5 @@
 import os
+import sqlite3
 
 DATABASE = SqliteDatabase(
     os.path.join(
