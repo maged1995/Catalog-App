@@ -34,7 +34,7 @@ class Category(Base):
     name = Column(String(20), nullable=False)
 
 
-engine = create_engine('sqlite:///' + os.path.join(basedir, 'db/Items.db'))
+engine = create_engine('sqlite:///Items.db')
 
 
 Base.metadata.create_all(engine)
