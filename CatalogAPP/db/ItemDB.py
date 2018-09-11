@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from passlib.apps import custom_app_context as pwd_context
 Base = declarative_base()
+import os
 
 
 class User(Base):
@@ -33,7 +34,7 @@ class Category(Base):
     name = Column(String(20), nullable=False)
 
 
-engine = create_engine('sqlite:///Items.db')
+engine = create_engine('sqlite:///' + os.path.join(basedir, 'db/Items.db'))
 
 
 Base.metadata.create_all(engine)
