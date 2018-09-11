@@ -23,7 +23,7 @@ auth = HTTPBasicAuth()
 
 engine = create_engine('sqlite:///' + os.path.join(basedir, 'db/Items.db'),
                        connect_args={'check_same_thread': False},
-                       poolclass=StaticPool)
+                       poolclass=StaticPool, pool_pre_ping=True)
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
