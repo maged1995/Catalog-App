@@ -20,7 +20,7 @@ from collections import OrderedDict
 
 auth = HTTPBasicAuth()
 
-engine = create_engine('sqlite:///Items.db',
+engine = create_engine('sqlite:///db/Items.db',
                        connect_args={'check_same_thread': False},
                        poolclass=StaticPool)
 
