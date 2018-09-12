@@ -6,11 +6,11 @@ Base = declarative_base()
 import os
 
 
-class User(Base):
-    __tablename__ = 'user'
+class customer(Base):
+    __tablename__ = 'customer'
     user_id = Column(Integer, primary_key=True)
     username = Column(String(32), index=True)
-    password_hash = Column(String(64))
+    password_hash = Column(String(128))
 
     def hash_password(self, password):
         self.password_hash = pwd_context.encrypt(password)
@@ -24,7 +24,7 @@ class Item(Base):
     item_id = Column(Integer, primary_key=True)
     title = Column(String(32), index=True, unique=True)
     description = Column(String)
-    creator_id = Column(Integer, ForeignKey("user.user_id"), nullable=False)
+    creator_id = Column(Integer, ForeignKey("customer.user_id"), nullable=False)
     Category = Column(Integer, ForeignKey("category.cat_id"), nullable=False)
 
 
@@ -34,7 +34,7 @@ class Category(Base):
     name = Column(String(20), nullable=False)
 
 
-engine = create_engine('sqlite:///Items.db')
+engine = create_engine('postgresql://catalog:ps@localhost/items')
 
 
 Base.metadata.create_all(engine)

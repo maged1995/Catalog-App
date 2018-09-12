@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+import sys
+sys.path.insert(1 , '/var/www/FLASKAPPS/CatalogAPP/db')
 from ItemDB import Base, User, Category, Item
 from flask import Flask, jsonify, request, url_for, redirect, flash
 # from flask_dance.contrib.github import make_github_blueprint, github
@@ -21,7 +23,7 @@ import os
 
 auth = HTTPBasicAuth()
 
-engine = create_engine('sqlite:///db/Items.db',
+engine = create_engine('postgresql://catalog:dbpassword@localhost/Items',
                        connect_args={'check_same_thread': False},
                        poolclass=StaticPool, pool_pre_ping=True)
 
