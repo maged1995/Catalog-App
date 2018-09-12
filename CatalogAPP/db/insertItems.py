@@ -33,6 +33,6 @@ user1.hash_password('eagle')
 session.add(user1)
 session.commit()
 
-Item1 = Item(title="Shinguards", description="IDK", creator_id=1, Category=1)
+Item1 = Item(title="Shinguards", description="IDK", creator_id=1, Cat_id=1)
 session.add(Item1)
 session.commit()

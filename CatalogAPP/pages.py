@@ -43,7 +43,7 @@ def showAll():
     categories = session.query(Category).order_by(asc(Category.name))
     # and loads all items, each with it's own Category
     sql = text('select title,name,' +
-               'item_id, cat_id,cat_id from item ' +
+               'item_id, cat_id from item ' +
                'join Category on cat_id=cat_id;')
     Items = engine.execute(sql)
     return render_template('publicPage.html',
