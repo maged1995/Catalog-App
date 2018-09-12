@@ -43,8 +43,8 @@ def showAll():
     categories = session.query(Category).order_by(asc(Category.name))
     # and loads all items, each with it's own Category
     sql = text('select title,name,' +
-               'item_id,Category,cat_id from item ' +
-               'join Category on Category=cat_id')
+               'item_id, cat_id,cat_id from item ' +
+               'join Category on cat_id=cat_id;')
     Items = engine.execute(sql)
     return render_template('publicPage.html',
                            Categories=categories, Items=Items)
@@ -173,7 +173,7 @@ def editItem(title):
         itemEdit = session.query(Item).filter_by(title=title).one()
         itemEdit.title = request.form['title']
         itemEdit.description = request.form['description']
-        itemEdit.Category = request.form['Category']
+        itemEdit.Cat_id = request.form['Category']
         session.commit()
         return redirect(url_for('showAll'))
 
@@ -214,7 +214,7 @@ def addItem():
             username=login_session['username']).one()
         itemadd = Item(title=request.form['title'],
                        description=request.form['description'],
-                       Category=request.form['Category'],
+                       Cat_id=request.form['Category'],
                        creator_id=u.user_id)
         session.add(itemadd)
         session.commit()
@@ -237,7 +237,7 @@ def RJSON():
             cats.append(cat)
             for i in items:
                 itemsl = OrderedDict([
-                    ('cat_id', i.Category),
+                    ('cat_id', i.cat_id),
                     ('description', i.description),
                     ('id', i.item_id),
                     ('title', i.title)
@@ -245,7 +245,7 @@ def RJSON():
                 item.append(itemsl)
         else:
             cat = {
-                'id': Categoryl.cat_id,
+                'id': cat_idl.cat_id,
                 'name': Categoryl.name
             }
             cats.append(cat)

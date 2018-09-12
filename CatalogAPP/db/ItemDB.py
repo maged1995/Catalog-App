@@ -25,7 +25,7 @@ class Item(Base):
     title = Column(String(32), index=True, unique=True)
     description = Column(String)
     creator_id = Column(Integer, ForeignKey("customer.user_id"), nullable=False)
-    Category = Column(Integer, ForeignKey("category.cat_id"), nullable=False)
+    Cat_id = Column(Integer, ForeignKey("category.cat_id"), nullable=False)
 
 
 class Category(Base):
