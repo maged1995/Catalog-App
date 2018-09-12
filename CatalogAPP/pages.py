@@ -23,7 +23,7 @@ import os
 
 auth = HTTPBasicAuth()
 
-engine = create_engine('postgresql://catalog:dbpassword@localhost/Items',
+engine = create_engine('postgresql://catalog:ps@localhost/Items',
                        poolclass=StaticPool)
 
 Base.metadata.bind = engine
