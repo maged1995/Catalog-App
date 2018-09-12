@@ -34,7 +34,7 @@ app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config['JSON_SORT_KEYS'] = False
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/FLASKAPPS/CatalogAPP/client_secrets.json', 'r').read())['web']['client_id']
 
 
 # this is the main page
