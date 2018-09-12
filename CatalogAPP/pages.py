@@ -24,8 +24,7 @@ import os
 auth = HTTPBasicAuth()
 
 engine = create_engine('postgresql://catalog:dbpassword@localhost/Items',
-                       connect_args={'check_same_thread': False},
-                       poolclass=StaticPool, pool_pre_ping=True)
+                       poolclass=StaticPool)
 
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
