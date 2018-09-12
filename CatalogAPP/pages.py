@@ -224,13 +224,13 @@ def addItem():
 @app.route('/catalog.json')
 def RJSON():
     cats = []
-    categories = session.query(Category).order_by(asc(Category.cat_id))
+    categories = session.query(Category).order_by(asc(Category.categ_id))
     for Categoryl in categories:
-        items = session.query(Item).filter_by(Category=Categoryl.cat_id).all()
+        items = session.query(Item).filter_by(Category=Categoryl.categ_id).all()
         if items:
             item = []
             cat = OrderedDict([
-                ('id', Categoryl.cat_id),
+                ('id', Categoryl.categ_id),
                 ('name', Categoryl.name),
                 ('item(s)', item)
             ])
@@ -245,7 +245,7 @@ def RJSON():
                 item.append(itemsl)
         else:
             cat = {
-                'id': cat_idl.cat_id,
+                'id': Categoryl.categ_id,
                 'name': Categoryl.name
             }
             cats.append(cat)

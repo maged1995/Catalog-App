@@ -25,12 +25,12 @@ class Item(Base):
     title = Column(String(32), index=True, unique=True)
     description = Column(String)
     creator_id = Column(Integer, ForeignKey("customer.user_id"), nullable=False)
-    Cat_id = Column(Integer, ForeignKey("category.cat_id"), nullable=False)
+    Cat_id = Column(Integer, ForeignKey("category.categ_id"), nullable=False)
 
 
 class Category(Base):
     __tablename__ = 'category'
-    cat_id = Column(Integer, primary_key=True)
+    categ_id = Column(Integer, primary_key=True)
     name = Column(String(20), nullable=False)
 
 
