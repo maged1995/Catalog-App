@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 sys.path.insert(1 , '/var/www/FLASKAPPS/CatalogAPP/db')
-from ItemDB import Base, User, Category, Item
+from ItemDB import Base, customer, Category, Item
 from flask import Flask, jsonify, request, url_for, redirect, flash
 # from flask_dance.contrib.github import make_github_blueprint, github
 from sqlalchemy.orm import sessionmaker
@@ -71,7 +71,7 @@ def showDesc(name, title):
     item = session.query(Item).filter_by(title=title).all()
     try:
         print(login_session['username'])
-        u = session.query(User).filter_by(
+        u = session.query(customer).filter_by(
             username=login_session['username']).all()
         return render_template('itemDesc.html', item=item, User=u)
     except:
@@ -121,7 +121,7 @@ def showLogin():
     # local method of signin or signup
     else:
         # searches for the username
-        us = session.query(User).filter_by(
+        us = session.query(customer).filter_by(
              username=request.form['username']).all()
         # if the username is not in database, then we'll sign up
         if not us:
@@ -129,7 +129,7 @@ def showLogin():
             if request.form['password'] == '':
                 return redirect("/login", code=400)
             # creating a new user record
-            newuser = User(username=request.form['username'])
+            newuser = customer(username=request.form['username'])
             newuser.hash_password(request.form['password'])
             session.add(newuser)
             session.commit()
@@ -160,7 +160,7 @@ def editItem(title):
         login_session['username']
     except:
         return redirect(url_for('showAll'))
-    u = session.query(User).filter_by(username=login_session['username']).all()
+    u = session.query(customer).filter_by(username=login_session['username']).all()
     item = session.query(Item).filter_by(title=title).all()
     if request.method == 'GET':
         if u[0].user_id == item[0].creator_id:
@@ -187,7 +187,7 @@ def deleteItem(title):
         login_session['username']
     except:
         return redirect(url_for('showAll'))
-    u = session.query(User).filter_by(username=login_session['username']).all()
+    u = session.query(customer).filter_by(username=login_session['username']).all()
     item = session.query(Item).filter_by(title=title).all()
     if u[0].user_id == item[0].creator_id:
         if request.method == 'GET':
@@ -211,7 +211,7 @@ def addItem():
         categories = session.query(Category).order_by(asc(Category.name))
         return render_template('additem.html', Categories=categories)
     elif request.method == 'POST':
-        u = session.query(User).filter_by(
+        u = session.query(customer).filter_by(
             username=login_session['username']).one()
         itemadd = Item(title=request.form['title'],
                        description=request.form['description'],
@@ -316,11 +316,11 @@ def gconnect():
     login_session['username'] = data['name']
     login_session['provider'] = 'google'
     try:
-        u = session.query(User).filter_by(
+        u = session.query(customer).filter_by(
             username=login_session['username']).all()
         print(u[0].username)
     except:
-        newuser = User(username=login_session['username'])
+        newuser = customer(username=login_session['username'])
         newuser.hash_password('')
         session.add(newuser)
         session.commit()
