@@ -6,5 +6,6 @@ import sys
 import os
 sys.path.insert(0 , '/var/www/FLASKAPPS/CatalogAPP')
 sys.path.insert(1 , '/var/www/FLASKAPPS/CatalogAPP/db')
+sys.stdout = open('/var/www/FLASKAPPS/CatalogAPP/output.txt', 'w')
 from pages import app as application
 application.secret_key = 'super_secret_key'
