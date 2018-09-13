@@ -43,8 +43,8 @@ def showAll():
     categories = session.query(Category).order_by(asc(Category.name))
     # and loads all items, each with it's own Category
     sql = text('select title,name,' +
-               'item_id, cat_id from item ' +
-               'join Category on cat_id=categ_id;')
+               'item_id, categ_id from item ' +
+               'join Category on item.categ_id=item.categ_id;')
     Items = engine.execute(sql)
     return render_template('publicPage.html',
                            Categories=categories, Items=Items)
@@ -56,7 +56,7 @@ def showAll():
 def showCat(name):
     # loads all items of the selected category
     categories = session.query(Category).filter_by(name=name).all()
-    Items = session.query(Item).filter_by(Category=categories[0].cat_id).all()
+    Items = session.query(Item).filter_by(Category=categories[0].categ_id).all()
     # loads all categories
     categories = session.query(Category).order_by(asc(Category.name))
     return render_template('publicCat.html',
@@ -224,13 +224,13 @@ def addItem():
 @app.route('/catalog.json')
 def RJSON():
     cats = []
-    categories = session.query(Category).order_by(asc(Category.Cat_id))
+    categories = session.query(Category).order_by(asc(Category.categ_id))
     for Categoryl in categories:
-        items = session.query(Item).filter_by(Category=Categoryl.Cat_id).all()
+        items = session.query(Item).filter_by(Category=Categoryl.categ_id).all()
         if items:
             item = []
             cat = OrderedDict([
-                ('id', Categoryl.Cat_id),
+                ('id', Categoryl.categ_id),
                 ('name', Categoryl.name),
                 ('item(s)', item)
             ])
@@ -245,7 +245,7 @@ def RJSON():
                 item.append(itemsl)
         else:
             cat = {
-                'id': Categoryl.Cat_id,
+                'id': Categoryl.categ_id,
                 'name': Categoryl.name
             }
             cats.append(cat)
