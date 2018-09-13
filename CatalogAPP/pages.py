@@ -56,7 +56,7 @@ def showAll():
 def showCat(name):
     # loads all items of the selected category
     categories = session.query(Category).filter_by(name=name).all()
-    Items = session.query(Item).filter_by(Category=categories[0].categ_id).all()
+    Items = session.query(Item).filter_by(categ_id=categories[0].categ_id).all()
     # loads all categories
     categories = session.query(Category).order_by(asc(Category.name))
     return render_template('publicCat.html',
@@ -226,7 +226,7 @@ def RJSON():
     cats = []
     categories = session.query(Category).order_by(asc(Category.categ_id))
     for Categoryl in categories:
-        items = session.query(Item).filter_by(Category=Categoryl.categ_id).all()
+        items = session.query(Item).filter_by(categ_id=Categoryl.categ_id).all()
         if items:
             item = []
             cat = OrderedDict([
