@@ -264,9 +264,13 @@ def gconnect():
     # Obtain authorization code
     code = request.data
 
+    print("in method")
+
     try:
         # Upgrade the authorization code into a credentials object
+        print("in try")
         oauth_flow = flow_from_clientsecrets('CatalogAPP/client_secrets.json', scope='')
+        print("in try 2")
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -305,6 +309,7 @@ def gconnect():
                                             'is already connected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
+    print("in method 2")
     login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
     userinfo_url = "https://www.googleapis.com/oauth2/v1/userinfo"
@@ -312,6 +317,8 @@ def gconnect():
     answer = requests.get(userinfo_url, params=params)
 
     data = answer.json()
+
+    print("in method 3")
 
     login_session['username'] = data['name']
     login_session['provider'] = 'google'
