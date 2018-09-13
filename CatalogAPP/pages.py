@@ -44,7 +44,7 @@ def showAll():
     # and loads all items, each with it's own Category
     sql = text('select title,name,' +
                'item_id, cat_id from item ' +
-               'join Category on cat_id=cat_id;')
+               'join Category on cat_id=categ_id;')
     Items = engine.execute(sql)
     return render_template('publicPage.html',
                            Categories=categories, Items=Items)
@@ -173,7 +173,7 @@ def editItem(title):
         itemEdit = session.query(Item).filter_by(title=title).one()
         itemEdit.title = request.form['title']
         itemEdit.description = request.form['description']
-        itemEdit.Cat_id = request.form['Category']
+        itemEdit.categ_id = request.form['Category']
         session.commit()
         return redirect(url_for('showAll'))
 
@@ -214,7 +214,7 @@ def addItem():
             username=login_session['username']).one()
         itemadd = Item(title=request.form['title'],
                        description=request.form['description'],
-                       Cat_id=request.form['Category'],
+                       categ_id=request.form['Category'],
                        creator_id=u.user_id)
         session.add(itemadd)
         session.commit()
@@ -224,20 +224,20 @@ def addItem():
 @app.route('/catalog.json')
 def RJSON():
     cats = []
-    categories = session.query(Category).order_by(asc(Category.categ_id))
+    categories = session.query(Category).order_by(asc(Category.Cat_id))
     for Categoryl in categories:
-        items = session.query(Item).filter_by(Category=Categoryl.categ_id).all()
+        items = session.query(Item).filter_by(Category=Categoryl.Cat_id).all()
         if items:
             item = []
             cat = OrderedDict([
-                ('id', Categoryl.categ_id),
+                ('id', Categoryl.Cat_id),
                 ('name', Categoryl.name),
                 ('item(s)', item)
             ])
             cats.append(cat)
             for i in items:
                 itemsl = OrderedDict([
-                    ('cat_id', i.cat_id),
+                    ('cat_id', i.categ_id),
                     ('description', i.description),
                     ('id', i.item_id),
                     ('title', i.title)
@@ -245,7 +245,7 @@ def RJSON():
                 item.append(itemsl)
         else:
             cat = {
-                'id': Categoryl.categ_id,
+                'id': Categoryl.Cat_id,
                 'name': Categoryl.name
             }
             cats.append(cat)
