@@ -269,7 +269,7 @@ def gconnect():
     try:
         # Upgrade the authorization code into a credentials object
         print("in try")
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/FLASKAPPS/CatalogAPP/client_secrets.json', scope='')
         print("in try 2")
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
