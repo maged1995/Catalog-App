@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 sys.path.insert(1 , '/var/www/FLASKAPPS/CatalogAPP/db')
+sys.stdout = open('/var/www/FLASKAPPS/CatalogAPP/output.txt', 'w')
 from ItemDB import Base, customer, Category, Item
 from flask import Flask, jsonify, request, url_for, redirect, flash
 # from flask_dance.contrib.github import make_github_blueprint, github

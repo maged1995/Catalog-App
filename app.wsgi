@@ -4,7 +4,6 @@ with open(activate_this) as file_:
     exec(file_.read(), dict(__file__=activate_this))
 import sys
 import os
-sys.stdout = open('/var/www/FLASKAPPS/CatalogAPP/output.txt', 'w')
 sys.path.insert(0 , '/var/www/FLASKAPPS/CatalogAPP')
 sys.path.insert(1 , '/var/www/FLASKAPPS/CatalogAPP/db')
 from pages import app as application
