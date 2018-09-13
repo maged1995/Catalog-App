@@ -44,7 +44,7 @@ def showAll():
     # and loads all items, each with it's own Category
     sql = text('select title,name,' +
                'item_id, item.categ_id from item ' +
-               'join Category on item.categ_id=item.categ_id;')
+               'join Category on item.categ_id=category.categ_id;')
     Items = engine.execute(sql)
     return render_template('publicPage.html',
                            Categories=categories, Items=Items)
